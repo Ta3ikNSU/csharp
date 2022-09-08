@@ -7,7 +7,7 @@ public class Princess
     
     private Contender? _bestOption;
 
-    private int _countSkipContenders = ;
+    private int _countSkipContenders = 4;
 
     public Princess(Hall hall)
     {
