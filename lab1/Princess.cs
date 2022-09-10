@@ -3,15 +3,15 @@ namespace lab1;
 
 public class Princess
 {
-    private readonly Hall _hall;
+    private readonly Friend _friend;
     
     private Contender? _bestOption;
 
     private int _countSkipContenders = 4;
 
-    public Princess(Hall hall)
+    public Princess(Friend friend)
     {
-        _hall = hall;
+        _friend = friend;
     }
     
     public bool SelectHusband(Contender contender)
@@ -22,7 +22,7 @@ public class Princess
         }
         else
         {
-            if (!_hall.GetFriend().CompareContenders(_bestOption, contender))
+            if (!_friend.CompareContenders(_bestOption, contender))
             {
                 _bestOption = contender;
                 if (_countSkipContenders == 0)

@@ -2,26 +2,19 @@ namespace lab1;
 
 public class Hall
 {
-    private Queue<Contender> _contenders;
-    private readonly Friend _friend;
-    public Hall(Friend friend, List<Contender> contenders)
+    public Queue<Contender> Contenders;
+    public Hall(List<Contender> contenders)
     {
-        _contenders = new Queue<Contender>(contenders.OrderBy(_ => new Random().Next()));
-        _friend = friend;
-    }
-
-    public Friend GetFriend()
-    {
-        return _friend;
+        Contenders = new Queue<Contender>(contenders.OrderBy(_ => new Random().Next()));
     }
 
     public Contender GetNextContender()
     {
-        return _contenders.Dequeue();
+        return Contenders.Dequeue();
     }
 
     public bool IsHallEmpty()
     {
-        return _contenders.Count == 0;
+        return Contenders.Count == 0;
     }
 }
