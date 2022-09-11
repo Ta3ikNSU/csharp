@@ -12,13 +12,13 @@ public class Hall : IHall
         _contenders = new Queue<IContender>(contenders.OrderBy(_ => new Random().Next()));
         _friend = friend;
     }
-    
+
     Queue<IContender> IHall.Contenders
     {
         get => _contenders;
         set => _contenders = value;
     }
-    
+
     IFriend IHall.Friend
     {
         get => _friend;

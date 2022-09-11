@@ -1,6 +1,28 @@
-﻿var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+﻿using lab2;
 
-app.MapGet("/", () => "Hello World!");
+internal class Program
+{
+    public static void Main(string[] args)
 
-app.Run();
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+
+    {
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureServices((hostContext, services) =>
+
+            {
+                services.AddHostedService<Princess>();
+
+                services.AddScoped<Hall>();
+
+                services.AddScoped<Friend>();
+
+                services.AddScoped<ContenderGenerator>();
+            });
+    }
+}

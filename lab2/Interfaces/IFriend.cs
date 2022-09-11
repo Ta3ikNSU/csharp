@@ -1,5 +1,3 @@
-using lab2.Interfaces;
-
 namespace lab2.Interfaces;
 
 public interface IFriend

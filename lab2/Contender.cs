@@ -9,8 +9,8 @@ public class Contender : IContender
 
     public Contender(string name, string patronymic)
     {
-        this._name = name;
-        this._patronymic = patronymic;
+        _name = name;
+        _patronymic = patronymic;
     }
 
     string IContender.Name
