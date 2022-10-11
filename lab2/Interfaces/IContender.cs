@@ -12,4 +12,9 @@ public interface IContender : IComparable
         var other = (obj as IContender)!;
         return Convert.ToInt32(Name.Equals(other.Name) && Patronymic.Equals(other.Patronymic));
     }
+
+    public string GetFullName()
+    {
+        return Name + "  " + Patronymic;
+    }
 }

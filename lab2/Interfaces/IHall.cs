@@ -2,22 +2,9 @@ namespace lab2.Interfaces;
 
 public interface IHall
 {
-    protected Queue<IContender> Contenders { get; set; }
+    public bool IsHallEmpty();
 
-    protected IFriend Friend { get; set; }
+    public IContender GetNextContender();
 
-    public bool IsHallEmpty()
-    {
-        return Contenders.Count == 0;
-    }
-
-    public IContender GetNextContender()
-    {
-        return Contenders.Dequeue();
-    }
-
-    public IFriend GetFriend()
-    {
-        return Friend;
-    }
+    public Queue<IContender> GetContenders();
 }

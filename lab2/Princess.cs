@@ -2,16 +2,16 @@ using lab2.Interfaces;
 
 namespace lab2;
 
-public class Princess : IPrincess, IHostedService
+public class Princess : IPrincess
 {
+    private readonly IFriend _friend;
     private IContender? _bestOption;
 
     private int _countSkipContenders = 4;
-    private IHall _hall;
 
-    public Princess(IHall hall)
+    public Princess(IFriend friend)
     {
-        _hall = hall;
+        _friend = friend;
     }
 
     public bool SelectHusband(IContender contender)
@@ -22,7 +22,7 @@ public class Princess : IPrincess, IHostedService
         }
         else
         {
-            if (!_hall.GetFriend().CompareContenders(_bestOption, contender))
+            if (!_friend.CompareContenders(_bestOption, contender))
             {
                 _bestOption = contender;
                 if (_countSkipContenders == 0) return true;
@@ -34,25 +34,9 @@ public class Princess : IPrincess, IHostedService
         return false;
     }
 
-    IHall IPrincess.Hall
-    {
-        get => _hall;
-        set => _hall = value;
-    }
-
     IContender? IPrincess.BestContender
     {
         get => _bestOption;
         set => _bestOption = value;
-    }
-
-    public Task StartAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
     }
 }

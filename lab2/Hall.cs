@@ -4,24 +4,30 @@ namespace lab2;
 
 public class Hall : IHall
 {
-    private Queue<IContender> _contenders;
-    private IFriend _friend;
+    private readonly Queue<IContender> _contenders;
 
-    public Hall(IFriend friend, IEnumerable<IContender> contenders)
+    public Hall(IContenderGenerator contenderGenerator)
     {
-        _contenders = new Queue<IContender>(contenders.OrderBy(_ => new Random().Next()));
-        _friend = friend;
+        _contenders = new Queue<IContender>(contenderGenerator.GetContenders().OrderBy(_ => new Random().Next()));
     }
 
-    Queue<IContender> IHall.Contenders
+    public bool IsHallEmpty()
     {
-        get => _contenders;
-        set => _contenders = value;
+        return _contenders.Count == 0;
     }
 
-    IFriend IHall.Friend
+    public IContender GetNextContender()
     {
-        get => _friend;
-        set => _friend = value;
+        return _contenders.Dequeue();
+    }
+
+    public Queue<IContender> GetContenders()
+    {
+        return _contenders;
+    }
+
+    public IContender GetCont()
+    {
+        return _contenders.Dequeue();
     }
 }

@@ -1,6 +1,8 @@
-﻿using lab2;
+﻿using lab2.Interfaces;
 
-internal class Program
+namespace lab2;
+
+internal static class Program
 {
     public static void Main(string[] args)
 
@@ -9,20 +11,21 @@ internal class Program
     }
 
 
-    public static IHostBuilder CreateHostBuilder(string[] args)
+    private static IHostBuilder CreateHostBuilder(string[] args)
 
     {
         return Host.CreateDefaultBuilder(args)
-            .ConfigureServices((hostContext, services) =>
-
+            .ConfigureServices((_, services) =>
             {
-                services.AddHostedService<Princess>();
+                services.AddHostedService<PrincessService>();
 
-                services.AddScoped<Hall>();
+                services.AddScoped<IHall, Hall>();
 
-                services.AddScoped<Friend>();
+                services.AddScoped<IPrincess, Princess>();
 
-                services.AddScoped<ContenderGenerator>();
+                services.AddScoped<IFriend, Friend>();
+
+                services.AddScoped<IContenderGenerator, ContenderGenerator>();
             });
     }
 }
