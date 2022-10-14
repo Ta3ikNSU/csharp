@@ -1,6 +1,6 @@
-using lab2.Interfaces;
+using lab2.model.Interfaces;
 
-namespace lab2;
+namespace lab2.model;
 
 public class Princess : IPrincess
 {

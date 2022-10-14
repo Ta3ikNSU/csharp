@@ -1,5 +1,5 @@
 using System.Text;
-using lab2.Interfaces;
+using lab2.model.Interfaces;
 using static System.DateTime;
 
 namespace lab2;

@@ -1,4 +1,4 @@
-namespace lab2.Interfaces;
+namespace lab2.model.Interfaces;
 
 public interface IFriend
 {

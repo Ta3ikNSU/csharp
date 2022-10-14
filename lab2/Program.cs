@@ -1,4 +1,5 @@
-﻿using lab2.Interfaces;
+﻿using lab2.model.Interfaces;
+using lab2.model;
 
 namespace lab2;
 
