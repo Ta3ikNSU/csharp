@@ -51,7 +51,7 @@ class Program
 
     private static void WriteOut(List<Contender>? contenders, int result)
     {
-        var fileName = DateTime.Now.ToLongTimeString() + ".txt";
+        var fileName = DateTime.Now.ToLongTimeString().Replace(":", "_") + ".txt";
         using var fs = File.Create(fileName);
         foreach (var contenderName in contenders!.Select(contender =>
                      new UTF8Encoding(true).GetBytes(contender.GetFullName() + '\n')))

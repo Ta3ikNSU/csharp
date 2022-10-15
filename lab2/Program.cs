@@ -1,5 +1,7 @@
 ﻿using lab2.model.Interfaces;
 using lab2.model;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace lab2;
 

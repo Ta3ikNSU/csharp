@@ -1,5 +1,7 @@
 using System.Text;
 using lab2.model.Interfaces;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using static System.DateTime;
 
 namespace lab2;
@@ -39,7 +41,7 @@ public class PrincessService : IHostedService
 
     private static void WriteOut(IEnumerable<IContender> contenders, int result)
     {
-        var fileName = Now.ToLongTimeString() + ".txt";
+        var fileName = Now.ToLongTimeString().Replace(":", "_") + ".txt";
         using var fs = File.Create(fileName);
         foreach (var contenderName in contenders!.Select(contender =>
                      new UTF8Encoding(true).GetBytes(contender.GetFullName() + '\n')))
