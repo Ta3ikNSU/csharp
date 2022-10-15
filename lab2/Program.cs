@@ -1,5 +1,7 @@
-﻿using lab2.model.Interfaces;
-using lab2.model;
+﻿using lab2.model;
+using lab2.model.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace lab2;
 
@@ -27,6 +29,8 @@ internal static class Program
                 services.AddScoped<IFriend, Friend>();
 
                 services.AddScoped<IContenderGenerator, ContenderGenerator>();
+                
+                services.AddScoped<IStrategy, SkipStrategy>();
             });
     }
 }

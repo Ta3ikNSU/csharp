@@ -4,13 +4,15 @@ namespace lab2.model;
 
 public class ContenderGenerator : IContenderGenerator
 {
-    private const int CountOfContenders = 100;
 
     private readonly IList<IContender> _contenders = new List<IContender>();
 
     public ContenderGenerator()
     {
-        for (var i = 0; i < CountOfContenders; i++) _contenders.Add(GenerateContender());
+        for (var i = 0; i < Constants.CountOfContenders; i++)
+        {
+            _contenders.Add(GenerateContender());
+        }
     }
 
     public IContender GenerateContender()
