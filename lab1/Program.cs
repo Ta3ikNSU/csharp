@@ -1,51 +1,45 @@
-﻿namespace lab1;
+﻿using System.Text;
 
-using System.Text;
+namespace lab1;
 
-class Program
+internal class Program
 {
+    private static readonly int CountOfContenders = 100;
 
-    private static int CountOfContenders = 100;
-    
     public static void Main()
     {
-        List<Contender> contenders = InitContenders();
-        Friend friend = new Friend(contenders);
-        Hall hall = new Hall(contenders);
-        Princess princess = new Princess(friend);
+        var contenders = InitContenders();
+        var friend = new Friend(contenders);
+        var hall = new Hall(contenders);
+        var princess = new Princess(friend);
 
-        int result = 10;
+        var result = 10;
         foreach (var contender in hall.Contenders)
-        {
             if (princess.SelectHusband(contender))
             {
-                Contender? bestContender = princess.GetBestContender();
+                var bestContender = princess.GetBestContender();
                 if (contenders != null)
                 {
                     result = friend.GetRank(bestContender!) > 50 ? friend.GetRank(bestContender!) : 0;
                     break;
                 }
             }
-        }
-        
+
         WriteOut(contenders, result);
     }
 
     private static List<Contender> InitContenders()
     {
-        List<Contender> contenders = new List<Contender>();
-        for (int i = 0; i < CountOfContenders; i++)
-        {
-            contenders.Add(GenerateContender());
-        }
+        var contenders = new List<Contender>();
+        for (var i = 0; i < CountOfContenders; i++) contenders.Add(GenerateContender());
 
         return contenders;
     }
-    
+
     private static Contender GenerateContender()
     {
-        string name = Constants.NamesQueue.Dequeue();
-        string patronymic = Constants.NamesQueue.Dequeue() + "ович"; 
+        var name = Constants.NamesQueue.Dequeue();
+        var patronymic = Constants.NamesQueue.Dequeue() + "ович";
         return new Contender(name, patronymic);
     }
 
@@ -59,7 +53,7 @@ class Program
             fs.Write(contenderName, 0, contenderName.Length);
         }
 
-        Byte[] resultString = new UTF8Encoding(true).GetBytes(result.ToString() + '\n');
+        var resultString = new UTF8Encoding(true).GetBytes(result.ToString() + '\n');
         fs.Write(resultString, 0, resultString.Length);
     }
 }

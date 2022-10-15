@@ -56,7 +56,7 @@ public class PrincessService : IHostedService
         _logger.LogInformation("Application start working");
         var result = 10;
         var contenders = _hall.GetContenders();
-        foreach (var contender in contenders)
+        foreach (IContender contender in _hall)
         {
             if (!_princess.SelectHusband(contender)) continue;
             var bestContender = _princess.GetBestContender();

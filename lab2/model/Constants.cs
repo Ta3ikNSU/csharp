@@ -46,4 +46,8 @@ public static class Constants
         "Шарль", "Эдвард", "Эдгар", "Эдмунд", "Эдуард", "Эльдар", "Эмиль", "Эмин", "Эммануил", "Эраст", "Эрик",
         "Эрнест", "Юлиан", "Юнус", "Юхим", "Яков", "Ян", "Ярослав", "Ясон"
     }.OrderBy(_ => new Random().Next()));
+
+    public const int CountOfContenders = 10;
+
+    public const int CountSkipContenders = 4;
 }

@@ -1,3 +1,5 @@
+using System.Collections;
+using lab2.Exception;
 using lab2.model.Interfaces;
 
 namespace lab2.model;
@@ -18,7 +20,12 @@ public class Hall : IHall
 
     public IContender GetNextContender()
     {
-        return _contenders.Dequeue();
+        if (_contenders.Count > 0)
+        {
+            return _contenders.Dequeue();
+        }
+        throw new HallEmptyException();
+        
     }
 
     public Queue<IContender> GetContenders()
@@ -26,8 +33,8 @@ public class Hall : IHall
         return _contenders;
     }
 
-    public IContender GetCont()
+    public IEnumerator GetEnumerator()
     {
-        return _contenders.Dequeue();
+        return _contenders.GetEnumerator();
     }
 }
