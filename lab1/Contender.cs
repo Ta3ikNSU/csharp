@@ -7,22 +7,19 @@ public class Contender : IComparable
 
     public Contender(string name, string patronymic)
     {
-        this._name = name;
-        this._patronymic = patronymic;
+        _name = name;
+        _patronymic = patronymic;
+    }
+
+    public int CompareTo(object? obj)
+    {
+        if (obj == null) throw new ArgumentNullException();
+        var other = (obj as Contender)!;
+        return Convert.ToInt32(GetFullName().Equals(other.GetFullName()));
     }
 
     public string GetFullName()
     {
         return _name + " " + _patronymic;
-    }
-
-    public int CompareTo(object? obj)
-    {
-        if (obj == null)
-        {
-            throw new ArgumentNullException();
-        }
-        var other = (obj as Contender)!;
-        return Convert.ToInt32(this.GetFullName().Equals(other.GetFullName()));
     }
 }

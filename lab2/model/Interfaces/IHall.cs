@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace lab2.model.Interfaces;
 
-public interface IHall
+public interface IHall : IEnumerable
 {
     public bool IsHallEmpty();
 
