@@ -6,7 +6,7 @@ namespace lab3;
 public class PrincessTests
 {
     [Test]
-    public void WhatTestHere()
+    public void Should_SelectSecondHusband_When_StrategySkipOne()
     {
         IContenderGenerator contenderGenerator = new ContenderGenerator();
         IFriend friend = new Friend(contenderGenerator);

@@ -4,7 +4,7 @@ namespace lab1;
 
 internal class Program
 {
-    private static readonly int CountOfContenders = 100;
+    private static readonly int CountOfContenders = 10;
 
     public static void Main()
     {

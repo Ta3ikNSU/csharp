@@ -7,7 +7,7 @@ namespace lab3;
 public class HallTests
 {
     [Test]
-    public void GetNextContender()
+    public void Should_GetNextContender_When_HallNotEmpty_And_Exception_When_HallEmpty()
     {
         IContenderGenerator contenderGenerator = new ContenderGenerator();
         IHall hall = new Hall(contenderGenerator);

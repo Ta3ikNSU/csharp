@@ -6,7 +6,7 @@ namespace lab3;
 public class GenerateContendersTests
 {
     [Test]
-    public void UniqueContendersName()
+    public void Should_GenerateUniqueContendersName()
     {
         var contenderGenerator = new ContenderGenerator();
         var contenders = contenderGenerator.GetContenders();
