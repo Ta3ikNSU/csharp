@@ -4,7 +4,7 @@ namespace lab1;
 
 internal class Program
 {
-    private static readonly int CountOfContenders = 100;
+    private static readonly int CountOfContenders = 10;
 
     public static void Main()
     {
@@ -49,9 +49,7 @@ internal class Program
         using var fs = File.Create(fileName);
         foreach (var contenderName in contenders!.Select(contender =>
                      new UTF8Encoding(true).GetBytes(contender.GetFullName() + '\n')))
-        {
             fs.Write(contenderName, 0, contenderName.Length);
-        }
 
         var resultString = new UTF8Encoding(true).GetBytes(result.ToString() + '\n');
         fs.Write(resultString, 0, resultString.Length);
