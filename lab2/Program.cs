@@ -29,7 +29,7 @@ internal static class Program
                 services.AddScoped<IFriend, Friend>();
 
                 services.AddScoped<IContenderGenerator, ContenderGenerator>();
-                
+
                 services.AddScoped<IStrategy, SkipStrategy>();
             });
     }

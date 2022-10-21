@@ -18,7 +18,7 @@ public class FriendTests
         var lastRating = friend.GetRank(lastContender);
         Assert.That(friend.CompareContenders(firstContender, lastContender), Is.EqualTo(firstRating > lastRating));
     }
-    
+
     [Test]
     public void Should_CorrectCompare_When_ContendersInvalid()
     {
@@ -28,8 +28,8 @@ public class FriendTests
         var lastContender = contenderGenerator.GenerateContender();
         Assert.Multiple(() =>
         {
-            Assert.Throws<UnknownContenderException>(delegate { friend.CompareContenders(firstContender, lastContender); });
-            Assert.Throws<UnknownContenderException>(delegate { friend.GetRank(lastContender);});
+            Assert.Throws<UnknownContenderException>(() => friend.CompareContenders(firstContender, lastContender));
+            Assert.Throws<UnknownContenderException>(() => friend.GetRank(lastContender));
         });
     }
 }

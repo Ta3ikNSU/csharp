@@ -14,7 +14,7 @@ public class SkipStrategy : IStrategy
         _friend = friend;
         _countSkipContenders = Constants.CountSkipContenders;
     }
-    
+
     public SkipStrategy(IFriend friend, int countSkipContenders)
     {
         _friend = friend;
