@@ -8,13 +8,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\lab2\lab2.csproj" />
-      <ProjectReference Include="..\lab3\lab3.csproj" />
+        <ProjectReference Include="..\lab2\lab2.csproj"/>
+        <ProjectReference Include="..\lab3\lab3.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="EntityFramework" Version="6.4.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0-rc.2.22472.11" />
+        <PackageReference Include="EntityFramework" Version="6.4.4"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0-rc.2.22472.11"/>
     </ItemGroup>
 
 </Project>
