@@ -47,7 +47,7 @@ public static class Constants
         "Эрнест", "Юлиан", "Юнус", "Юхим", "Яков", "Ян", "Ярослав", "Ясон"
     }.OrderBy(_ => new Random().Next()));
 
-    public const int CountOfContenders = 10;
+    public const int CountOfContenders = 100;
 
     public const int CountSkipContenders = 4;
 }
