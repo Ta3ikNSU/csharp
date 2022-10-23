@@ -14,9 +14,9 @@ public class ChoiceAttempt
 
     [Required] [Column("number_attempt")] public int NumberAttempt { get; set; }
 
-    [Required]
-    [Column("contenders_rating")]
-    public Dictionary<IContender, int> ContendersRating { get; set; }
-
-    [Required] [Column("contenders")] public Queue<IContender> Contenders { get; set; }
+    // [Required]
+    // [Column("contenders_rating")]
+    // public Dictionary<IContender, int> ContendersRating { get; set; }
+    //
+    // [Required] [Column("contenders")] public Queue<IContender> Contenders { get; set; }
 }
