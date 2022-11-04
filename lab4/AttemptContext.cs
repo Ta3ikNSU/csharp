@@ -4,11 +4,7 @@ namespace lab4;
 
 public class AttemptContext : DbContext
 {
-    public DbSet<ChoiceAttempt> Students { get; set; }
-
-    public AttemptContext(DbContextOptions options) : base(options)
-    {
-    }
+    public DbSet<ChoiceAttemptDao> Attempts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
