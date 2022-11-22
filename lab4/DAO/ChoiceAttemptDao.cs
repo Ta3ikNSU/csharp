@@ -2,19 +2,13 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using JetBrains.Annotations;
 using lab2.model.Interfaces;
+using lab4.DAO;
 
 namespace lab4;
 
-[Table("ChoiceAttempt")]
+[Table("choice_attempt")]
 public class ChoiceAttemptDao
 {
-    public ChoiceAttemptDao(int numberAttempt, IDictionary<IContender, int> contendersRating, IEnumerable<IContender> contenders)
-    {
-        NumberAttempt = numberAttempt;
-        ContendersRating = new Dictionary<IContender, int>(contendersRating);
-        Contenders = new Queue<IContender>(contenders);
-    }
-
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Column("id")]
@@ -25,13 +19,14 @@ public class ChoiceAttemptDao
     public int NumberAttempt { get; set; }
 
     [Required]
-    [Column("contenders_rating")]
-    [NotNull]
-    public Dictionary<IContender, int> ContendersRating { get; set; }
+    [Column("number_in_attempt")]
+    public int Number { get; set; }
 
     [Required]
-    [Column("contenders")]
-    [NotNull]
-    
-    public Queue<IContender> Contenders { get; set; }
+    [Column("rating")]
+    public int Rating { get; set; }
+
+    [Required]
+    [Column("contender")]
+    public ContenderDao ContenderDao { get; set; }
 }

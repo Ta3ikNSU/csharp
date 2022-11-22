@@ -13,8 +13,8 @@ public class ContenderGenerator : IContenderGenerator
 
     public IContender GenerateContender()
     {
-        var name = Constants.NamesQueue.Dequeue();
-        var patronymic = Constants.NamesQueue.Dequeue() + "ович";
+        var name = Constants.GetRandomName();
+        var patronymic =  Constants.GetRandomName() + "ович";
         return new Contender(name, patronymic);
     }
 

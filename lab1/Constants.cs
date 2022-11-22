@@ -2,7 +2,7 @@ namespace lab1;
 
 public static class Constants
 {
-    public static Queue<string> NamesQueue = new(new List<string>
+    private static readonly List<string> NamesTemplate = new()
     {
         "Абрам", "Аваз", "Аввакум", "Август", "Авдей", "Авраам", "Автандил", "Агап", "Агафон", "Аггей", "Адам", "Адис",
         "Адольф", "Адриан", "Азамат", "Азат", "Айдар", "Айнур", "Айрат", "Аким", "Алан", "Александр", "Алексей", "Али",
@@ -45,5 +45,8 @@ public static class Constants
         "Хаким", "Харитон", "Христиан", "Христос", "Христофор", "Цезарь", "Чарльз", "Чеслав", "Чингиз", "Шамиль",
         "Шарль", "Эдвард", "Эдгар", "Эдмунд", "Эдуард", "Эльдар", "Эмиль", "Эмин", "Эммануил", "Эраст", "Эрик",
         "Эрнест", "Юлиан", "Юнус", "Юхим", "Яков", "Ян", "Ярослав", "Ясон"
-    }.OrderBy(_ => new Random().Next()));
+    };
+    
+    public static readonly Queue<string> NamesQueue =
+        new(new List<string>(NamesTemplate).OrderBy(_ => new Random().Next()));
 }
