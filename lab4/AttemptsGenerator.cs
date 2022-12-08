@@ -1,14 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using lab2;
+﻿using lab2;
 using lab2.model;
 using lab2.model.Interfaces;
-using lab4.DAO;
 
 namespace lab4;
 
 public static class AttemptsGenerator
 {
-    public static async void GenerateEnvironment()
+    public static async Task GenerateEnvironment()
     {
         using AttemptContext context = new AttemptContext();
         IContenderGenerator contenderGenerator = new ContenderGenerator();
@@ -25,11 +23,8 @@ public static class AttemptsGenerator
                 {
                     NumberAttempt = i,
                     Number = queue.Dequeue(),
-                    ContenderDao = new ContenderDao
-                    {
-                        Name = contender.Name,
-                        Patronymic = contender.Patronymic
-                    },
+                    Name = contender.Name,
+                    Patronymic = contender.Patronymic,
                     Rating = rating.Dequeue()
                 };
                 context.Attempts.Add(choiceAttempt);

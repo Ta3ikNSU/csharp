@@ -1,11 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using lab2.model;
 using lab2.model.Interfaces;
-using lab4.DAO;
 using lab4.Exception;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace lab4;
 
@@ -16,7 +13,7 @@ internal static class Program
     {
         try
         {
-            AttemptsGenerator.GenerateEnvironment();
+            await AttemptsGenerator.GenerateEnvironment();
             if (args.Length == 0)
             {
                 Console.WriteLine("Enter the attempt number when starting the application [1..100]");
@@ -51,30 +48,27 @@ internal static class Program
 
     }
 
-    [SuppressMessage("ReSharper.DPA", "DPA0007: Large number of DB records", MessageId = "count: 201")]
     private static int getDataAndEmulateBehavior(int attemptNumber)
     {
         using var context = new AttemptContext();
         IQueryable<ChoiceAttemptDao>? attemptDaos = context.Attempts.Where(dao => dao.NumberAttempt == attemptNumber);
 
         var attempts = new List<ChoiceAttemptDao>(attemptDaos);
-        Console.WriteLine(attempts.Count);
         IDictionary<IContender, int> contendersRating = new Dictionary<IContender, int>();
         IContender[] contenderQueueAsArray = new IContender[100];
         if (attempts.Count != 100)
         {
-            throw new GenerateEnvironException("Attempt generated incorrectly");
+            throw new GenerateEnvironException("Attempt generated incorrectly. Actual size is : " + attempts.Count);
         }
 
         foreach (var attempt in attempts)
         {
-            IContender contender = attempt.ContenderDao.toContender();
-            Console.WriteLine(contender.GetFullName());
+            IContender contender = new Contender(attempt.Name, attempt.Patronymic);
             var contenderRating = attempt.Rating;
             var number = attempt.Number;
 
             contendersRating.Add(contender, contenderRating);
-            contenderQueueAsArray[number] = contender;
+            contenderQueueAsArray[number - 1] = contender;
         }
 
         Queue<IContender> contendersQueue = new Queue<IContender>(contenderQueueAsArray);

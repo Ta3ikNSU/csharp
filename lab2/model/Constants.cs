@@ -6,7 +6,7 @@ public static class Constants
 
     public const int CountSkipContenders = 4;
 
-    public const int CountAttempts = 1;
+    public const int CountAttempts = 100;
 
     private static readonly List<string> NamesTemplate = new()
     {
