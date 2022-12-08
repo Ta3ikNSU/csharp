@@ -2,6 +2,12 @@ namespace lab2;
 
 public static class Constants
 {
+    public const int CountOfContenders = 100;
+
+    public const int CountSkipContenders = 4;
+
+    public const int CountAttempts = 1;
+
     private static readonly List<string> NamesTemplate = new()
     {
         "Абрам", "Аваз", "Аввакум", "Август", "Авдей", "Авраам", "Автандил", "Агап", "Агафон", "Аггей", "Адам", "Адис",
@@ -51,10 +57,4 @@ public static class Constants
     {
         return NamesTemplate[new Random().Next(NamesTemplate.Count)];
     }
-    
-    public const int CountOfContenders = 100;
-
-    public const int CountSkipContenders = 4;
-
-    public const int CountAttempts = 100;
 }
