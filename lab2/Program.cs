@@ -13,6 +13,15 @@ internal static class Program
         CreateHostBuilder(args).Build().Run();
     }
 
+    public static void M(IHost host)
+    {
+        var scope = host.Services.CreateScope();
+            
+            scope.ServiceProvider
+            .GetRequiredService<MeDbContet>()
+
+        Program.cs
+    }
 
     private static IHostBuilder CreateHostBuilder(string[] args)
 

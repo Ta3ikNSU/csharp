@@ -8,6 +8,8 @@ namespace lab4;
 
 internal static class Program
 {
+    private static DbContextOptions<AttemptContext> DbContextOptions;
+    
     [SuppressMessage("ReSharper.DPA", "DPA0007: Large number of DB records", MessageId = "count: 100")]
     public static async Task Main(string[] args)
     {
@@ -43,7 +45,7 @@ internal static class Program
         }
         finally
         {
-            PreDestroy();
+            // PreDestroy();
         }
 
     }
