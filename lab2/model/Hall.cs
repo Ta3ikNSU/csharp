@@ -12,6 +12,11 @@ public class Hall : IHall
     {
         _contenders = new Queue<IContender>(contenderGenerator.GetContenders().OrderBy(_ => new Random().Next()));
     }
+    
+    public Hall(Queue<IContender> contenders)
+    {
+        _contenders =  new Queue<IContender>(contenders);
+    }
 
     public bool IsHallEmpty()
     {

@@ -2,7 +2,13 @@ namespace lab2;
 
 public static class Constants
 {
-    public static readonly Queue<string> NamesQueue = new(new List<string>
+    public const int CountOfContenders = 100;
+
+    public const int CountSkipContenders = 4;
+
+    public const int CountAttempts = 100;
+
+    private static readonly List<string> NamesTemplate = new()
     {
         "Абрам", "Аваз", "Аввакум", "Август", "Авдей", "Авраам", "Автандил", "Агап", "Агафон", "Аггей", "Адам", "Адис",
         "Адольф", "Адриан", "Азамат", "Азат", "Айдар", "Айнур", "Айрат", "Аким", "Алан", "Александр", "Алексей", "Али",
@@ -45,9 +51,10 @@ public static class Constants
         "Хаким", "Харитон", "Христиан", "Христос", "Христофор", "Цезарь", "Чарльз", "Чеслав", "Чингиз", "Шамиль",
         "Шарль", "Эдвард", "Эдгар", "Эдмунд", "Эдуард", "Эльдар", "Эмиль", "Эмин", "Эммануил", "Эраст", "Эрик",
         "Эрнест", "Юлиан", "Юнус", "Юхим", "Яков", "Ян", "Ярослав", "Ясон"
-    }.OrderBy(_ => new Random().Next()));
+    };
 
-    public const int CountOfContenders = 10;
-
-    public const int CountSkipContenders = 4;
+    public static string GetRandomName()
+    {
+        return NamesTemplate[new Random().Next(NamesTemplate.Count)];
+    }
 }

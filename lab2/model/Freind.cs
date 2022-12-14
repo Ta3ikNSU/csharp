@@ -13,6 +13,11 @@ public class Friend : IFriend
         var contenders = contenderGenerator.GetContenders();
         for (var i = 0; i < contenders.Count; i++) _contendersRating.Add(contenders[i], i + 1);
     }
+    
+    public Friend(IDictionary<IContender, int> contendersRating)
+    {
+        _contendersRating = new Dictionary<IContender, int>(contendersRating);
+    }
 
     public bool CompareContenders(IContender contenderNameFirst, IContender contenderNameSecond)
     {
