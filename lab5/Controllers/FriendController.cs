@@ -18,9 +18,9 @@ public class FriendController : ControllerBase
     [HttpPost("{attempt_number:int}/compare")]
     [ProducesResponseType(typeof(ContenderDTO), 200)]
     public async Task<IActionResult> compareContender(
-        int attempt_number,
-        PairContenderNameDTO pairContenderNameDto,
-        int session
+        [FromRoute] int attempt_number,
+        [FromBody] PairContenderNameDTO pairContenderNameDto,
+        [FromQuery] int? session
     )
     {
         var betterContender =

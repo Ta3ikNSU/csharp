@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace lab5.DTO;
 
 public class ContenderDTO
 {
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public string? name{ get; set; }
 
     public ContenderDTO(string? name)

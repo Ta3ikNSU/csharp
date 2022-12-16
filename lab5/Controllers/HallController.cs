@@ -34,7 +34,6 @@ public class HallController : ControllerBase
     
     [HttpPost("{attempt_number:int}/next")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    // wtf()
     public ContenderDTO getNextContender(int attempt_number, int session)
     {
         return new ContenderDTO(HallService.getNextContender(attempt_number));
