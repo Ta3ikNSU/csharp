@@ -1,4 +1,6 @@
-﻿namespace lab5.Services.Interfaces;
+﻿using lab5.Model;
+
+namespace lab5.Services.Interfaces;
 
 public interface ContenderGenerator
 {

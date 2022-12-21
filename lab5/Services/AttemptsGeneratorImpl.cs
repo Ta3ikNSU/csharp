@@ -1,16 +1,20 @@
-﻿using lab5.Services.Interfaces;
+﻿using lab5.Model;
+using lab5.Services.Interfaces;
 
 namespace lab5.Services;
 
 public class AttemptsGeneratorImpl : AttemptsGenerator
 {
-    private readonly IServiceScopeFactory ScopeFactory;
-
     private readonly ContenderGenerator ContenderGenerator;
 
-    public AttemptsGeneratorImpl(ContenderGenerator contenderGenerator, IServiceScopeFactory scopeFactory)
+    private readonly ILogger Logger;
+    private readonly IServiceScopeFactory ScopeFactory;
+
+    public AttemptsGeneratorImpl(ContenderGenerator contenderGenerator, IServiceScopeFactory scopeFactory,
+        ILogger<AttemptsGeneratorImpl> logger)
     {
         ScopeFactory = scopeFactory;
+        Logger = logger;
         ContenderGenerator = contenderGenerator;
     }
 

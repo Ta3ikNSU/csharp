@@ -1,16 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace lab5;
+namespace lab5.Model;
 
 public sealed class AttemptContext : DbContext
 {
-    public DbSet<ChoiceAttemptDao> Attempts { get; set; }
-
     public AttemptContext(DbContextOptions<AttemptContext> options) : base(options)
     {
-        this.Database.Migrate();
     }
-    
+
+    public DbSet<ChoiceAttemptDao> Attempts { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ChoiceAttemptDao>(builder =>

@@ -9,15 +9,17 @@ namespace lab5.Controllers;
 public class FriendController : ControllerBase
 {
     private readonly FriendService FriendService;
+    private readonly ILogger Logger;
 
-    public FriendController(FriendService friendService)
+    public FriendController(FriendService friendService, ILogger<FriendController> logger)
     {
         FriendService = friendService;
+        Logger = logger;
     }
 
     [HttpPost("{attempt_number:int}/compare")]
     [ProducesResponseType(typeof(ContenderDTO), 200)]
-    public async Task<IActionResult> compareContender(
+    public Task<IActionResult> compareContender(
         [FromRoute] int attempt_number,
         [FromBody] PairContenderNameDTO pairContenderNameDto,
         [FromQuery] int? session
@@ -25,9 +27,9 @@ public class FriendController : ControllerBase
     {
         var betterContender =
             FriendService.compareContenders(
-                pairContenderNameDto.nameFirstContender,
-                pairContenderNameDto.nameSecondConteder,
+                pairContenderNameDto.nameFirstContender!,
+                pairContenderNameDto.nameSecondConteder!,
                 attempt_number);
-        return Ok(new ContenderDTO(betterContender));
+        return Task.FromResult<IActionResult>(Ok(new ContenderDTO(betterContender)));
     }
 }

@@ -1,5 +1,5 @@
 ﻿using lab5.DTO;
-using Newtonsoft.Json;
+using lab5.Services;
 
 namespace lab5.Model.Strategies;
 
@@ -21,15 +21,12 @@ public class SkipStrategy : IStrategy
         }
         else
         {
-            String friendUrl = "http://127.0.0.1:5188/friend/{attemp_number}/compare";
-            var client = new HttpClient();
-            var uri = new Uri(friendUrl.Replace("{attemp_number}", attemp_number.ToString()));
-            var response = client.PostAsJsonAsync(uri, new ContenderDTO(contender.Name));
-            using var sr = new StreamReader(response.Result.Content.ReadAsStream());
-            using var jtr = new JsonTextReader(sr);
-            var contenderDto = new JsonSerializer().Deserialize<ContenderDTO>(jtr);
-            
-            if (!contenderDto.name.Equals(_bestOption.Name))
+            var friendUrl = "/friend/ " + attemp_number + "/compare";
+
+            var contenderDto = RestTemplate
+                .Post<ContenderDTO>(friendUrl, new PairContenderNameDTO(_bestOption.Name, contender.Name)).Result;
+
+            if (contenderDto.name != null && !contenderDto.name.Equals(_bestOption.Name))
             {
                 _bestOption = contender;
                 if (_countSkipContenders == 0) return true;
@@ -41,13 +38,13 @@ public class SkipStrategy : IStrategy
         return false;
     }
 
-    public Task<bool> SelectStrategy(ContenderDTO contender, int attemp_number)
-    {
-        throw new NotImplementedException();
-    }
-
     public Contender BestContender()
     {
         return _bestOption;
+    }
+
+    public Task<bool> SelectStrategy(ContenderDTO contender, int attemp_number)
+    {
+        throw new NotImplementedException();
     }
 }

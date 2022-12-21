@@ -1,7 +1,6 @@
 ﻿using lab5.DTO;
 using lab5.Model;
 using lab5.Model.Strategies;
-using Newtonsoft.Json;
 
 namespace lab5.Services;
 
@@ -9,15 +8,16 @@ public class PrincessServiceImpl : IHostedService
 {
     private readonly IHostApplicationLifetime _appLifetime;
 
-    private Princess princess;
+    private readonly ILogger log;
 
     private readonly IServiceScopeFactory ScopeFactory;
-    
-    public PrincessServiceImpl(IHostApplicationLifetime appLifetime, IServiceScopeFactory scopeFactory)
+
+    public PrincessServiceImpl(IHostApplicationLifetime appLifetime, IServiceScopeFactory scopeFactory,
+        ILogger<PrincessServiceImpl> logger)
     {
         _appLifetime = appLifetime;
-        princess = new Princess(new SkipStrategy(4));
         ScopeFactory = scopeFactory;
+        log = logger;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -26,51 +26,43 @@ public class PrincessServiceImpl : IHostedService
         return Task.CompletedTask;
     }
 
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     private void OnStarted()
     {
         using var scope = ScopeFactory.CreateScope();
         var AttemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
-        
-        int attemp_number = 1;
-        while (true)
+        for (var attemp_number = 1; attemp_number <= Constants.CountAttempts; attemp_number++)
         {
-            ContenderDTO contender = getNextContender(attemp_number);
-            
-            if (contender != null && 
-                contender.name != null &&
-                !princess.SelectHusband(new Contender(contender.name), attemp_number))
+            var princess = new Princess(new SkipStrategy(4));
+            var resultRating = 10;
+            while (true)
             {
-                continue;
-            }
-            
-            if (contender.name == null)
-            {
+                var contender = getNextContender(attemp_number);
+                if (contender.name != null &&
+                    !princess.SelectHusband(new Contender(contender.name), attemp_number)) continue;
                 var bestContender = princess.GetBestContender();
                 if (bestContender != null)
                 {
                     var attemptDao = AttemptContext.Attempts.First(dao => dao.NumberAttempt.Equals(attemp_number) &&
                                                                           dao.Name.Equals(bestContender.Name));
-                    attemptDao.Number = -1;
+                    resultRating = attemptDao.Rating > 50 ? attemptDao.Rating : 0;
                     AttemptContext.SaveChanges();
                 }
+
                 break;
             }
+
+            log.LogInformation("For attemp_number : {} princess hapiness is : {}", attemp_number, resultRating);
         }
     }
 
-    private ContenderDTO getNextContender(int attemp_number)
+    private static ContenderDTO getNextContender(int attemp_number)
     {
-        String hallUrlNext = "http://127.0.0.1:5188/hall/{attemp_number}/next";
-        var client = new HttpClient();
-        var uri = new Uri(hallUrlNext.Replace("{attemp_number}", attemp_number.ToString()));
-        var response = client.PostAsync(uri, null);
-        using var sr = new StreamReader(response.Result.Content.ReadAsStream());
-        using var jtr = new JsonTextReader(sr);
-        return new JsonSerializer().Deserialize<ContenderDTO>(jtr);
-    }
-    
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
+        var hallUrlNext = "/hall/" + attemp_number + "/next";
+        return RestTemplate.Post<ContenderDTO>(hallUrlNext, null).Result;
     }
 }

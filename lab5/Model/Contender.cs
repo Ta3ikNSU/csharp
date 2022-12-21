@@ -1,11 +1,14 @@
-﻿namespace lab5;
+﻿using Lombok.NET;
 
-public class Contender
+namespace lab5.Model;
+
+[ToString]
+public partial class Contender
 {
-    public String Name { get; set; }
-
     public Contender(string name)
     {
-        this.Name = name;
+        Name = name;
     }
+
+    public string Name { get; set; }
 }

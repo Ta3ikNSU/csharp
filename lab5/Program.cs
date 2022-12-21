@@ -1,3 +1,4 @@
+using lab5.Model;
 using lab5.Services;
 using lab5.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -21,15 +22,15 @@ internal static class Program
         serviceCollection.AddDbContext<AttemptContext>(
             opt => opt.UseNpgsql("Host=localhost:5432;Database=csharpdb;Username=postgres;Password=1234")
         );
-        
+
         serviceCollection.AddSingleton<FriendService, FriendServiceImpl>();
         serviceCollection.AddSingleton<HallService, HallServiceImpl>();
         serviceCollection.AddSingleton<AttemptsGenerator, AttemptsGeneratorImpl>();
         serviceCollection.AddSingleton<ContenderGenerator, ContenderGeneratorImpl>();
-        
+
         serviceCollection.AddHostedService<PrincessServiceImpl>();
     }
-    
+
     private static void initWebApplication(WebApplication app)
     {
         app.UseRouting();

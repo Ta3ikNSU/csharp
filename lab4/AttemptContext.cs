@@ -13,7 +13,7 @@ public sealed class AttemptContext : DbContext
     
     public AttemptContext(DbContextOptions<AttemptContext> options) : base(options)
     {
-        this.Database.MigrateAsync()
+        this.Database.MigrateAsync();
     }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

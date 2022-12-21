@@ -1,4 +1,5 @@
-﻿using lab5.Services.Interfaces;
+﻿using lab5.Model;
+using lab5.Services.Interfaces;
 
 namespace lab5.Services;
 

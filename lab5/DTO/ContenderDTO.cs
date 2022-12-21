@@ -1,18 +1,15 @@
 ﻿using System.Text.Json.Serialization;
+using Lombok.NET;
 
 namespace lab5.DTO;
 
-public class ContenderDTO
+[ToString]
+public partial class ContenderDTO
 {
-    [JsonPropertyName("name")]
-    public string? name{ get; set; }
-
     public ContenderDTO(string? name)
     {
-        Console.WriteLine("name : " + name);
-        if (name != null)
-        {
-            this.name = name;
-        }
+        if (name != null) this.name = name;
     }
+
+    [JsonPropertyName("name")] public string? name { get; set; }
 }
