@@ -16,9 +16,9 @@ public class Princess
         get => _strategy.BestContender();
     }
 
-    public bool SelectHusband(Contender contender, int attempt_number)
+    public bool SelectHusband(Contender contender, int attemptNumber)
     {
-        return _strategy.SelectStrategy(contender, attempt_number);
+        return _strategy.SelectStrategy(contender, attemptNumber);
     }
 
     public Contender? GetBestContender()

@@ -13,11 +13,11 @@ internal static class Program
 
     {
         var builder = WebApplication.CreateBuilder(args);
-        initServices(builder.Services);
-        initWebApplication(builder.Build());
+        InitServices(builder.Services);
+        InitWebApplication(builder.Build());
     }
 
-    private static void initServices(IServiceCollection serviceCollection)
+    private static void InitServices(IServiceCollection serviceCollection)
     {
         serviceCollection.AddControllersWithViews();
         serviceCollection.AddSwaggerGen();
@@ -46,7 +46,7 @@ internal static class Program
         serviceCollection.AddHostedService<PrincessServiceImpl>();
     }
 
-    private static void initWebApplication(WebApplication app)
+    private static void InitWebApplication(WebApplication app)
     {
         app.UseRouting();
         app.UseAuthorization();

@@ -18,13 +18,13 @@ public class FriendServiceImpl : FriendService
     {
         var methodName = "compareContenders()";
         using var scope = ScopeFactory.CreateScope();
-        var AttemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
+        var attemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
 
         log.LogTrace("{}: name1 : {}, name2 : {}", methodName, name1, name2);
 
-        var firstRating = AttemptContext.Attempts
+        var firstRating = attemptContext.Attempts
             .First(dao => dao.Name.Equals(name1) && dao.NumberAttempt.Equals(attempNumber)).Rating;
-        var secondRating = AttemptContext.Attempts
+        var secondRating = attemptContext.Attempts
             .First(dao => dao.Name.Equals(name2) && dao.NumberAttempt.Equals(attempNumber)).Rating;
 
         if (firstRating == secondRating && !name1.Equals(name2))

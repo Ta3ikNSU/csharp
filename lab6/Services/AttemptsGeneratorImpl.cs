@@ -5,35 +5,35 @@ namespace lab6.Services;
 
 public class AttemptsGeneratorImpl : AttemptsGenerator
 {
-    private readonly ContenderGenerator ContenderGenerator;
+    private readonly ContenderGenerator _contenderGenerator;
 
-    private readonly ILogger Logger;
-    private readonly IServiceScopeFactory ScopeFactory;
+    private readonly ILogger _logger;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     public AttemptsGeneratorImpl(ContenderGenerator contenderGenerator, IServiceScopeFactory scopeFactory,
         ILogger<AttemptsGeneratorImpl> logger)
     {
-        ScopeFactory = scopeFactory;
-        Logger = logger;
-        ContenderGenerator = contenderGenerator;
+        _scopeFactory = scopeFactory;
+        _logger = logger;
+        _contenderGenerator = contenderGenerator;
     }
 
     public void GenerateEnvironment()
     {
-        using var scope = ScopeFactory.CreateScope();
-        var AttemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
+        using var scope = _scopeFactory.CreateScope();
+        var attemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
 
-        CleanContenders(AttemptContext);
-        GenerateConteders(AttemptContext);
-        AttemptContext.SaveChanges();
+        CleanContenders(attemptContext);
+        GenerateContenders(attemptContext);
+        attemptContext.SaveChanges();
     }
 
-    private void CleanContenders(AttemptContext AttemptContext)
+    private void CleanContenders(AttemptContext attemptContext)
     {
-        AttemptContext.Attempts.RemoveRange(AttemptContext.Attempts);
+        attemptContext.Attempts.RemoveRange(attemptContext.Attempts);
     }
 
-    private void GenerateConteders(AttemptContext AttemptContext)
+    private void GenerateContenders(AttemptContext attemptContext)
     {
         for (var i = 1; i <= Constants.CountAttempts; i++)
         {
@@ -43,7 +43,7 @@ public class AttemptsGeneratorImpl : AttemptsGenerator
                 Enumerable.Range(1, Constants.CountOfContenders).OrderBy(_ => new Random().Next()));
             for (var contenderNumber = 0; contenderNumber < Constants.CountOfContenders; contenderNumber++)
             {
-                var contender = ContenderGenerator.GenerateContender();
+                var contender = _contenderGenerator.GenerateContender();
                 var choiceAttempt = new ChoiceAttemptDao
                 {
                     NumberAttempt = i,
@@ -51,7 +51,7 @@ public class AttemptsGeneratorImpl : AttemptsGenerator
                     Name = contender.Name,
                     Rating = rating.Dequeue()
                 };
-                AttemptContext.Attempts.Add(choiceAttempt);
+                attemptContext.Attempts.Add(choiceAttempt);
             }
         }
     }

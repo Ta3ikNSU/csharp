@@ -9,36 +9,36 @@ namespace lab6.Controllers;
 [Route("hall")]
 public class HallController : ControllerBase
 {
-    private readonly AttemptsGenerator AttemptsGenerator;
+    private readonly AttemptsGenerator _attemptsGenerator;
 
-    private readonly HallService HallService;
-    private readonly ILogger Logger;
+    private readonly HallService _hallService;
+    private readonly ILogger _logger;
 
     public HallController(HallService hallService, AttemptsGenerator attemptsGenerator, ILogger<HallController> logger)
     {
-        HallService = hallService;
-        AttemptsGenerator = attemptsGenerator;
-        Logger = logger;
+        _hallService = hallService;
+        _attemptsGenerator = attemptsGenerator;
+        _logger = logger;
     }
 
     [HttpPost("{attempt_number:int}/select")]
-    public int getHusbandRating(int attempt_number, int session)
+    public int GetHusbandRating(int attempt_number, int session)
     {
-        return HallService.getHusbandRating(attempt_number);
+        return _hallService.getHusbandRating(attempt_number);
     }
 
     [HttpPost("reset")]
     public OkResult reset_attempts(int session)
     {
-        AttemptsGenerator.GenerateEnvironment();
+        _attemptsGenerator.GenerateEnvironment();
         return Ok();
     }
 
     [HttpPost("{attempt_number:int}/next")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public void getNextContender(int attempt_number, int session)
+    public void GetNextContender(int attempt_number, int session)
     {
-        Logger.LogInformation("Hall get reqeust to get next contender. attempt_number : {}", attempt_number);
-        HallService.getNextContender(attempt_number);
+        _logger.LogInformation("Hall get reqeust to get next contender. attempt_number : {}", attempt_number);
+        _hallService.getNextContender(attempt_number);
     }
 }

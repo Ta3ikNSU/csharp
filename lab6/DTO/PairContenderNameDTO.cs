@@ -10,11 +10,11 @@ public partial class PairContenderNameDTO
 {
     public PairContenderNameDTO(string? nameFirstContender, string? nameSecondConteder)
     {
-        this.nameFirstContender = nameFirstContender;
-        this.nameSecondConteder = nameSecondConteder;
+        NameFirstContender = nameFirstContender;
+        NameSecondConteder = nameSecondConteder;
     }
 
-    [JsonPropertyName("name1")] public string? nameFirstContender { get; set; }
+    [JsonPropertyName("name1")] public string? NameFirstContender { get; set; }
 
-    [JsonPropertyName("name2")] public string? nameSecondConteder { get; set; }
+    [JsonPropertyName("name2")] public string? NameSecondConteder { get; set; }
 }

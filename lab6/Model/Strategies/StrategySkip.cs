@@ -13,7 +13,7 @@ public class SkipStrategy : IStrategy
         _countSkipContenders = countSkipContenders;
     }
 
-    public bool SelectStrategy(Contender contender, int attemp_number)
+    public bool SelectStrategy(Contender contender, int attempNumber)
     {
         if (_bestOption == null)
         {
@@ -21,12 +21,12 @@ public class SkipStrategy : IStrategy
         }
         else
         {
-            var friendUrl = "/friend/ " + attemp_number + "/compare";
+            var friendUrl = "/friend/ " + attempNumber + "/compare";
 
             var contenderDto = RestTemplate
                 .Post<ContenderDTO>(friendUrl, new PairContenderNameDTO(_bestOption.Name, contender.Name)).Result;
 
-            if (contenderDto.name != null && !contenderDto.name.Equals(_bestOption.Name))
+            if (contenderDto.Name != null && !contenderDto.Name.Equals(_bestOption.Name))
             {
                 _bestOption = contender;
                 if (_countSkipContenders == 0) return true;
@@ -43,7 +43,7 @@ public class SkipStrategy : IStrategy
         return _bestOption;
     }
 
-    public Task<bool> SelectStrategy(ContenderDTO contender, int attemp_number)
+    public Task<bool> SelectStrategy(ContenderDTO contender, int attempNumber)
     {
         throw new NotImplementedException();
     }

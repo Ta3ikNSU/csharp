@@ -5,28 +5,28 @@ namespace lab6.Services;
 
 public class HallServiceImpl : HallService
 {
-    private readonly Dictionary<int, int> ContendersCounter;
-    private readonly ILogger log;
-    private readonly IServiceScopeFactory ScopeFactory;
+    private readonly Dictionary<int, int> _contendersCounter;
+    private readonly ILogger _log;
+    private readonly IServiceScopeFactory _scopeFactory;
 
     public HallServiceImpl(IServiceScopeFactory scopeFactory, ILogger<HallServiceImpl> logger)
     {
-        ScopeFactory = scopeFactory;
-        log = logger;
-        ContendersCounter = new Dictionary<int, int>();
+        _scopeFactory = scopeFactory;
+        _log = logger;
+        _contendersCounter = new Dictionary<int, int>();
     }
 
     public string? getNextContender(int attemp_number)
     {
-        using var scope = ScopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var AttemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
 
-        if (!ContendersCounter.ContainsKey(attemp_number)) ContendersCounter.Add(attemp_number, 1);
+        if (!_contendersCounter.ContainsKey(attemp_number)) _contendersCounter.Add(attemp_number, 1);
 
-        var currentNumber = ContendersCounter[attemp_number];
+        var currentNumber = _contendersCounter[attemp_number];
         if (currentNumber == 100) return null;
-        log.LogTrace("attemp_number : {}, currentNumber : {}", attemp_number, currentNumber);
-        ContendersCounter[attemp_number] = currentNumber + 1;
+        _log.LogTrace("attemp_number : {}, currentNumber : {}", attemp_number, currentNumber);
+        _contendersCounter[attemp_number] = currentNumber + 1;
         return AttemptContext.Attempts
             .FirstOrDefault(dao => dao.NumberAttempt.Equals(attemp_number) &&
                                    dao.Number.Equals(currentNumber))?.Name;
@@ -34,7 +34,7 @@ public class HallServiceImpl : HallService
 
     public int getHusbandRating(int attemp_number)
     {
-        using var scope = ScopeFactory.CreateScope();
+        using var scope = _scopeFactory.CreateScope();
         var AttemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
         var dao = AttemptContext.Attempts.FirstOrDefault(dao =>
             dao.NumberAttempt.Equals(attemp_number) && dao.Number.Equals(-1));

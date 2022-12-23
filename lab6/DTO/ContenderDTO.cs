@@ -8,9 +8,9 @@ public partial class ContenderDTO
 {
     public ContenderDTO(string? name)
     {
-        if (name != null) this.name = name;
+        if (name != null) this.Name = name;
     }
 
     [JsonPropertyName("name")]
-    public string? name { get; set; }
+    public string? Name { get; set; }
 }

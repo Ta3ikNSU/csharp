@@ -8,28 +8,28 @@ namespace lab6.Controllers;
 [Route("friend")]
 public class FriendController : ControllerBase
 {
-    private readonly FriendService FriendService;
-    private readonly ILogger Logger;
+    private readonly FriendService _friendService;
+    private readonly ILogger _logger;
 
     public FriendController(FriendService friendService, ILogger<FriendController> logger)
     {
-        FriendService = friendService;
-        Logger = logger;
+        _friendService = friendService;
+        _logger = logger;
     }
 
-    [HttpPost("{attempt_number:int}/compare")]
+    [HttpPost("{attemptNumber:int}/compare")]
     [ProducesResponseType(typeof(ContenderDTO), 200)]
-    public Task<IActionResult> compareContender(
-        [FromRoute] int attempt_number,
+    public Task<IActionResult> CompareContender(
+        [FromRoute] int attemptNumber,
         [FromBody] PairContenderNameDTO pairContenderNameDto,
         [FromQuery] int? session
     )
     {
         var betterContender =
-            FriendService.compareContenders(
-                pairContenderNameDto.nameFirstContender!,
-                pairContenderNameDto.nameSecondConteder!,
-                attempt_number);
+            _friendService.compareContenders(
+                pairContenderNameDto.NameFirstContender!,
+                pairContenderNameDto.NameSecondConteder!,
+                attemptNumber);
         return Task.FromResult<IActionResult>(Ok(new ContenderDTO(betterContender)));
     }
 }

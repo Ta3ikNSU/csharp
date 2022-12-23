@@ -6,20 +6,20 @@ namespace lab6.Services;
 
 public class ContendersServiceImpl : ContendersService
 {
-    private ConcurrentQueue<ContenderDTO> ConcurrentQueue = new ConcurrentQueue<ContenderDTO>();
+    private ConcurrentQueue<ContenderDTO> _concurrentQueue = new ConcurrentQueue<ContenderDTO>();
     
     public bool isEmpty()
     {
-        return ConcurrentQueue.IsEmpty;
+        return _concurrentQueue.IsEmpty;
     }
     
     public void Enqueue(ContenderDTO contenderDto)
     {
-        ConcurrentQueue.Enqueue(contenderDto);
+        _concurrentQueue.Enqueue(contenderDto);
     }
 
     public int size()
     {
-        return ConcurrentQueue.Count;
+        return _concurrentQueue.Count;
     }
 }

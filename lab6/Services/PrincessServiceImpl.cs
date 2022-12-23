@@ -9,11 +9,11 @@ public class PrincessServiceImpl : IHostedService
 {
     private readonly IHostApplicationLifetime _appLifetime;
 
-    private readonly ILogger log;
+    private readonly ILogger _log;
 
-    private readonly IServiceScopeFactory ScopeFactory;
+    private readonly IServiceScopeFactory _scopeFactory;
 
-    private readonly ContendersService ContendersService;
+    private readonly ContendersService _contendersService;
 
     public PrincessServiceImpl(
         IHostApplicationLifetime appLifetime,
@@ -22,9 +22,9 @@ public class PrincessServiceImpl : IHostedService
         ContendersService contendersService)
     {
         _appLifetime = appLifetime;
-        ScopeFactory = scopeFactory;
-        log = logger;
-        ContendersService = contendersService;
+        _scopeFactory = scopeFactory;
+        _log = logger;
+        _contendersService = contendersService;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -40,44 +40,44 @@ public class PrincessServiceImpl : IHostedService
 
     private void OnStarted()
     {
-        using var scope = ScopeFactory.CreateScope();
-        var AttemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
+        using var scope = _scopeFactory.CreateScope();
+        var attemptContext = scope.ServiceProvider.GetRequiredService<AttemptContext>();
         
-        for (var attemp_number = 1; attemp_number <= Constants.CountAttempts; attemp_number++)
+        for (var attempNumber = 1; attempNumber <= Constants.CountAttempts; attempNumber++)
         {
             var princess = new Princess(new SkipStrategy(4));
             var resultRating = 10;
             while (true)
             {
-                getNextContender(attemp_number);
+                GetNextContender(attempNumber);
                 var contender = new ContenderDTO("eewfwef");
-                while (ContendersService.isEmpty())
+                while (_contendersService.isEmpty())
                 {
                     // log.LogInformation("Queue is empty");
                     Thread.Sleep(1000);
                 }
-                log.LogInformation("Queue not empty");
-                if (contender.name != null &&
-                    !princess.SelectHusband(new Contender(contender.name), attemp_number)) continue;
+                _log.LogInformation("Queue not empty");
+                if (contender.Name != null &&
+                    !princess.SelectHusband(new Contender(contender.Name), attempNumber)) continue;
                 var bestContender = princess.GetBestContender();
                 if (bestContender != null)
                 {
-                    var attemptDao = AttemptContext.Attempts.First(dao => dao.NumberAttempt.Equals(attemp_number) &&
+                    var attemptDao = attemptContext.Attempts.First(dao => dao.NumberAttempt.Equals(attempNumber) &&
                                                                           dao.Name.Equals(bestContender.Name));
                     resultRating = attemptDao.Rating > 50 ? attemptDao.Rating : 0;
-                    AttemptContext.SaveChanges();
+                    attemptContext.SaveChanges();
                 }
 
                 break;
             }
 
-            log.LogInformation("For attemp_number : {} princess hapiness is : {}", attemp_number, resultRating);
+            _log.LogInformation("For attemp_number : {} princess hapiness is : {}", attempNumber, resultRating);
         }
     }
 
-    private static void getNextContender(int attemp_number)
+    private static void GetNextContender(int attempNumber)
     {
-        var hallUrlNext = "/hall/" + attemp_number + "/next";
+        var hallUrlNext = "/hall/" + attempNumber + "/next";
         RestTemplate.PostWithNoResult(hallUrlNext, null).Wait();
     }
 }
